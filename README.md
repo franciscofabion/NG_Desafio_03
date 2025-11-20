@@ -8,18 +8,7 @@ Este projeto implementa um serviço Linux que monitora um diretório e move arqu
 
 ---
 
-## Sumário
-
-- [Funcionalidades](#funcionalidades)  
-- [Requisitos](#requisitos)  
-- [Instalação](#instalação)  
-- [Uso](#uso)  
-- [Observações](#observações)  
-- [Tecnologias](#tecnologias)  
-
----
-
-## Funcionalidades
+## 1. Funcionalidades
 
 - Monitoramento em tempo real do diretório de origem  
 - Movimentação automática para o diretório de destino  
@@ -27,7 +16,7 @@ Este projeto implementa um serviço Linux que monitora um diretório e move arqu
 
 ---
 
-## Requisitos
+## 2. Requisitos
 
 - Linux  
 - `inotify-tools`  
@@ -35,17 +24,17 @@ Este projeto implementa um serviço Linux que monitora um diretório e move arqu
 
 ---
 
-## Instalação
+## 3. Instalação
 
-### 1. Instalar `inotify-tools`
+### 3.1. Instalar `inotify-tools`
 ```bash
 sudo apt install inotify-tools
-2. Criar os diretórios de origem e destino
+3.2. Criar os diretórios de origem e destino
 bash
 Copiar código
 mkdir -p /home/fabio
 mkdir -p /home/fabio/ngbilling
-3. Criar o script /usr/local/bin/mover_arquivo.sh
+3.3. Criar o script /usr/local/bin/mover_arquivo.sh
 bash
 Copiar código
 #!/bin/bash
@@ -57,11 +46,11 @@ while read caminho evento arquivo
 do
     mv "$ORIGEM/$arquivo" "$DESTINO/"
 done
-4. Tornar o script executável
+3.4. Tornar o script executável
 bash
 Copiar código
 sudo chmod +x /usr/local/bin/mover_arquivo.sh
-5. Criar o serviço systemd /etc/systemd/system/mover_arquivo.service
+3.5. Criar o serviço systemd /etc/systemd/system/mover_arquivo.service
 ini
 Copiar código
 [Unit]
@@ -75,27 +64,30 @@ User=root
 
 [Install]
 WantedBy=multi-user.target
-6. Ativar e iniciar o serviço
+3.6. Ativar e iniciar o serviço
 bash
 Copiar código
 sudo systemctl daemon-reload
 sudo systemctl enable mover_arquivo.service
 sudo systemctl start mover_arquivo.service
-Uso
+4. Uso
 Coloque arquivos no diretório de origem (/home/fabio).
 
 Eles serão movidos automaticamente para o diretório de destino (/home/fabio/ngbilling).
 
-Observações
+5. Observações
 Teste o script manualmente antes de criar o serviço.
 
 O serviço roda em background e inicia automaticamente no boot do Linux.
 
 É possível alterar os caminhos de origem e destino conforme necessidade.
 
-Tecnologias
+6. Tecnologias
 Bash
 
 Systemd
 
 inotify-tools
+
+7. Licença
+Este projeto está licenciado sob a MIT License. Veja o arquivo LICENSE para detalhes.
