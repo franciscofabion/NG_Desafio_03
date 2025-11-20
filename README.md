@@ -30,14 +30,12 @@ Este projeto implementa um serviço Linux que monitora um diretório e move arqu
 ```bash
 sudo apt install inotify-tools
 
-Crie os diretórios de origem e destino:
-
-2. Crie os diretórios de origem e destino:
+## Crie os diretórios de origem e destino
 
 mkdir -p /home/fabio
 mkdir -p /home/fabio/ngbilling
 
-3. Crie o script /usr/local/bin/mover_arquivo.sh:
+## Crie o script /usr/local/bin/mover_arquivo.sh:
 
 #!/bin/bash
 ORIGEM="/home/fabio"
@@ -49,11 +47,11 @@ do
     mv "$ORIGEM/$arquivo" "$DESTINO/"
 done
 
-4. Torne o script executável:
+## Torne o script executável
 
 sudo chmod +x /usr/local/bin/mover_arquivo.sh
 
-5. Crie o serviço systemd /etc/systemd/system/mover_arquivo.service:
+## Crie o serviço systemd /etc/systemd/system/mover_arquivo.service
 
 [Unit]
 Description=Servico de monitoramento e movimentacao de arquivos
@@ -67,13 +65,13 @@ User=root
 [Install]
 WantedBy=multi-user.target
 
-6. Ative e inicie o serviço:
+## Ative e inicie o serviço
 
 sudo systemctl daemon-reload
 sudo systemctl enable mover_arquivo.service
 sudo systemctl start mover_arquivo.service
 
-Uso
+## Uso
 
 Coloque arquivos no diretório de origem (/home/fabio). Eles serão movidos automaticamente para o diretório de destino (/home/fabio/ngbilling).
 
